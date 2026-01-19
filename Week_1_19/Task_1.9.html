@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hall Ticket</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #333;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 28px;
+            color: #333;
+        }
+        .form-section {
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        input[type="file"] {
+            padding: 8px;
+        }
+        .photo-upload {
+            border: 2px dashed #666;
+            padding: 20px;
+            text-align: center;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        .photo-preview {
+            width: 150px;
+            height: 180px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: none;
+            margin: 0 auto 15px;
+            object-fit: cover;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .ticket-preview {
+            border: 2px solid #333;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+            background-color: #fafafa;
+        }
+        .ticket-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .ticket-col {
+            flex: 1;
+            font-size: 14px;
+        }
+        .ticket-col-label {
+            font-weight: bold;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Hall Ticket</h1>
+        </div>
+
+        <form id="hallTicketForm">
+            <div class="form-section">
+                <h3 style="margin-bottom: 15px; color: #333;">Student Information</h3>
+
+                <div class="form-group">
+                    <label for="rollNumber">Roll Number:</label>
+                    <input type="text" id="rollNumber" name="rollNumber" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="studentName">Full Name:</label>
+                    <input type="text" id="studentName" name="studentName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="course">Course:</label>
+                    <input type="text" id="course" name="course" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="examDate">Exam Date:</label>
+                    <input type="date" id="examDate" name="examDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="examTime">Exam Time:</label>
+                    <input type="text" id="examTime" name="examTime" placeholder="e.g., 10:00 AM - 1:00 PM" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="center">Exam Center:</label>
+                    <input type="text" id="center" name="center" required>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3 style="margin-bottom: 15px; color: #333;">Photo Upload</h3>
+                <div class="photo-upload">
+                    <input type="file" id="photoUpload" name="photo" accept="image/*" onchange="previewPhoto(event)">
+                    <p style="margin-top: 10px; color: #666; font-size: 12px;">Upload a clear passport-size photo (JPG/PNG)</p>
+                </div>
+                <img id="photoPreview" class="photo-preview" alt="Photo Preview">
+            </div>
+
+            <button type="button" onclick="generateTicket()">Generate Hall Ticket</button>
+            <button type="reset">Reset Form</button>
+        </form>
+
+        <div id="ticketPreview" class="ticket-preview">
+            <div style="text-align: center; margin-bottom: 15px;">
+                <img id="ticketPhoto" class="photo-preview" alt="Student Photo">
+            </div>
+            <div class="ticket-row">
+                <div class="ticket-col">
+                    <div class="ticket-col-label">Roll Number:</div>
+                    <div id="ticketRoll"></div>
+                </div>
+                <div class="ticket-col">
+                    <div class="ticket-col-label">Name:</div>
+                    <div id="ticketName"></div>
+                </div>
+            </div>
+            <div class="ticket-row">
+                <div class="ticket-col">
+                    <div class="ticket-col-label">Course:</div>
+                    <div id="ticketCourse"></div>
+                </div>
+                <div class="ticket-col">
+                    <div class="ticket-col-label">Email:</div>
+                    <div id="ticketEmail"></div>
+                </div>
+            </div>
+            <div class="ticket-row">
+                <div class="ticket-col">
+                    <div class="ticket-col-label">Exam Date:</div>
+                    <div id="ticketDate"></div>
+                </div>
+                <div class="ticket-col">
+                    <div class="ticket-col-label">Exam Time:</div>
+                    <div id="ticketTime"></div>
+                </div>
+            </div>
+            <div class="ticket-row">
+                <div class="ticket-col">
+                    <div class="ticket-col-label">Exam Center:</div>
+                    <div id="ticketCenter"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function previewPhoto(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('photoPreview').src = e.target.result;
+                    document.getElementById('photoPreview').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function generateTicket() {
+            const roll = document.getElementById('rollNumber').value;
+            const name = document.getElementById('studentName').value;
+            const email = document.getElementById('email').value;
+            const course = document.getElementById('course').value;
+            const date = document.getElementById('examDate').value;
+            const time = document.getElementById('examTime').value;
+            const center = document.getElementById('center').value;
+            const photo = document.getElementById('photoPreview').src;
+
+            if (!roll || !name || !email || !course || !date || !time || !center) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            document.getElementById('ticketRoll').textContent = roll;
+            document.getElementById('ticketName').textContent = name;
+            document.getElementById('ticketEmail').textContent = email;
+            document.getElementById('ticketCourse').textContent = course;
+            document.getElementById('ticketDate').textContent = date;
+            document.getElementById('ticketTime').textContent = time;
+            document.getElementById('ticketCenter').textContent = center;
+
+            if (photo) {
+                document.getElementById('ticketPhoto').src = photo;
+                document.getElementById('ticketPhoto').style.display = 'block';
+            }
+
+            document.getElementById('ticketPreview').style.display = 'block';
+            document.getElementById('ticketPreview').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
