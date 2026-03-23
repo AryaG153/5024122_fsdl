@@ -1,0 +1,14 @@
+<style>
+  [data-role="tag"] { background: #d0ebff; padding: 4px 8px; border-radius: 3px; }
+  .parent .child { font-weight: bold; }
+  .parent > .direct { color: #c13515; }
+  .item + .item { border-top: 1px dashed #aaa; }
+  .item ~ .item { opacity: 0.8; }
+  li:nth-child(2) { background: #f0f4c3; }
+  li:nth-child(odd) { font-style: italic; }
+</style>
+
+<div data-role="tag">Attribute selector</div>
+<div class="parent"><div class="child">descendant</div><div class="direct">child only</div></div>
+<div class="item">A</div><div class="item">B (adjacent)</div><div class="item">C (general sibling)</div>
+<ul><li>1</li><li>2 (nth-child 2)</li><li>3</li></ul>

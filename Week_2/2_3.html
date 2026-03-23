@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSS3 Mini Demo</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>CSS3 Demo</h1>
+    <p class="lead">Syntax, inclusion, color, background, fonts, tables, lists, selectors, pseudo classes/elements</p>
+  </header>
+
+  <section id="colors">
+    <h2>Colors</h2>
+    <p class="rgb">RGB text</p>
+    <p class="rgba">RGBA transparency</p>
+    <p class="hex">HEX text</p>
+    <p class="hsl">HSL text</p>
+  </section>
+
+  <section id="background">
+    <h2>Background</h2>
+    <div class="bg-box">Gradient + image fallback</div>
+  </section>
+
+  <section id="fonts">
+    <h2>Fonts</h2>
+    <p class="custom">Custom font via @font-face (or system stack fallback)</p>
+  </section>
+
+  <section id="table">
+    <h2>Tables</h2>
+    <table>
+      <thead><tr><th>Item</th><th>Price</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Apple</td><td>$1.00</td><td class="available">✔</td></tr>
+        <tr><td>Banana</td><td>$0.75</td><td class="soldout">✖</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="lists">
+    <h2>Lists</h2>
+    <ul class="icon-list">
+      <li>First item</li>
+      <li>Second item</li>
+      <li>Third item</li>
+    </ul>
+    <ol class="numbered">
+      <li>Step 1</li>
+      <li>Step 2</li>
+    </ol>
+  </section>
+
+  <section id="selectors">
+    <h2>CSS3 Selectors</h2>
+    <p class="selector-attr">attr selector</p>
+    <button type="button">+ Sibling selector</button>
+    <p class="selector-sibling">This is sibling-targeted text</p>
+  </section>
+
+  <section id="pseudo">
+    <h2>Pseudo-classes and Pseudo-elements</h2>
+    <a href="#" class="btn">Hover / Focus / Active</a>
+    <p class="pseudo">First letter + first line + after pseudo element</p>
+  </section>
+</body>
+</html>

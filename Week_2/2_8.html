@@ -1,0 +1,13 @@
+<style>
+  ul.reset { list-style: none; padding: 0; margin: 0; }
+  ul.counter { counter-reset: item; }
+  ul.counter li::before { counter-increment: item; content: counter(item) '. '; font-weight: bold; }
+  ol.custom { list-style: none; padding-left: 1.5em; }
+  ol.custom li::before { content: "👉"; margin-right: 0.5em; }
+  ul.flex { display: flex; gap: 12px; flex-wrap: wrap; }
+</style>
+
+<ul class="reset"><li>No bullets</li><li>clean list</li></ul>
+<ul class="counter"><li>First</li><li>Second</li></ul>
+<ol class="custom"><li>Option A</li><li>Option B</li></ol>
+<ul class="flex"><li>Flex item 1</li><li>Flex item 2</li></ul>
